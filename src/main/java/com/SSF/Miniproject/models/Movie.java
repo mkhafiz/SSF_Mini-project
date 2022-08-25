@@ -109,12 +109,28 @@ public class Movie {
         m.setOriginal_title(jo.getString("original_title"));
         m.setOverview(jo.getString("overview"));
         m.setPopularity(jo.getInt("popularity"));
-        // m.setPoster_path(jo.getString("poster_path"));
+        m.setPoster_path(jo.getString("poster_path"));
         m.setRelease_date(jo.getString("release_date"));
         m.setTitle(jo.getString("title"));
         m.setVideo(jo.getString("video"));
         m.setVote_average(jo.getInt("vote_average"));
         m.setVote_count(jo.getInt("vote_count"));
         return m;
+    }
+
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+            .add("id", id)
+            .add("original_language", original_language)
+            .add("original_title", original_title)
+            .add("overview", overview)
+            .add("popularity", popularity)
+            .add("poster_path", poster_path)
+            .add("release_date", release_date)
+            .add("title", title)
+            .add("video", video)
+            .add("vote_average", vote_average)
+            .add("vote_count", vote_count)
+            .build();
     }
 }

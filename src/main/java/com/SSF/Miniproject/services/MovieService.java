@@ -26,10 +26,10 @@ import jakarta.json.JsonReader;
 @Service
 public class MovieService {
 
+    private static final String URL = "https://api.themoviedb.org/3/discover/movie";
+
     @Value("${API_KEY}")
     private String key;
-
-    private static final String URL = "https://api.themoviedb.org/3/discover/movie";
 
     @Autowired
     private MovieRepository movieRepo;
