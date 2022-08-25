@@ -16,6 +16,12 @@
 		<java.version>18</java.version>
 	</properties>
 	<dependencies>
+		<!-- TheMovieDB API -->
+		<dependency>
+			<groupId>com.github.holgerbrandl</groupId>
+			<artifactId>themoviedbapi</artifactId>
+			<version>1.12</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
