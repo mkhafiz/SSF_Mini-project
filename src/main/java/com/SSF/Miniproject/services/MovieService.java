@@ -77,15 +77,15 @@ public class MovieService {
         return list;
     }
 
-    public void saveToRepo(String id, String payload) {
-        movieRepo.save(id, payload);
+    public void saveToRepo(int i, String payload) {
+        movieRepo.save(i, payload);
     }
 
-    public Optional<Movie> getNewsById(Integer id) {
-        return getNewsById(id.toString());
+    public Optional<Movie> getMovieById(String id) {
+        return getMovieById(id.toString());
     }
 
-    public Optional<Movie> getNewsById(String id) {
+    public Optional<Movie> getMovieById(int id) {
         // check if repo has the value
         String result = movieRepo.get(id);
         if (null == result)

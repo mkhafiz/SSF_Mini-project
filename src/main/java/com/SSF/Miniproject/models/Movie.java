@@ -10,19 +10,18 @@ import jakarta.json.JsonReader;
 public class Movie {
 
     // popular movie
-    public boolean adult;
-    public String backdrop_path;
-    public List<Integer> genre_ids; // int genre_ids
-    
+    // public boolean adult;
+    // public String backdrop_path;
+    // public List<Integer> genre_ids; // or int 
+    public String poster_path;
+    // public String title;
+    // public String video;
     public int id;
     public String original_language;
     public String original_title;
     public String overview;
     public int popularity;
-    public String poster_path;
     public String release_date;
-    public String title;
-    public String video;
     public int vote_average;
     public int vote_count;
 
@@ -43,32 +42,22 @@ public class Movie {
     public int getPopularity() { return popularity; }
     public void setPopularity(int popularity) { this.popularity = popularity; }
 
-    public String getPoster_path() { return poster_path; }
-    public void setPoster_path(String poster_path) { this.poster_path = poster_path; }
-
     public String getRelease_date() { return release_date; }
     public void setRelease_date(String release_date) { this.release_date = release_date; }
     
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getVideo() { return video; }
-    public void setVideo(String video) { this.video = video; }
-
     public int getVote_average() { return vote_average; }
     public void setVote_average(int vote_average) { this.vote_average = vote_average; }
     
     public int getVote_count() { return vote_count; }
     public void setVote_count(int vote_count) { this.vote_count = vote_count; }
 
-    public boolean isAdult() { return adult; }
-    public void setAdult(boolean adult) { this.adult = adult; }
-    
-    public String getBackdrop_path() { return backdrop_path; }
-    public void setBackdrop_path(String backdrop_path) { this.backdrop_path = backdrop_path; }
-    
-    public List<Integer> getGenre_ids() { return genre_ids; }
-    public void setGenre_ids(List<Integer> genre_ids) { this.genre_ids = genre_ids; }
+    public String getPoster_path() {
+        return poster_path;
+    }
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
 
     public static Movie createNew(String jsonStr) {
         StringReader strReader = new StringReader(jsonStr);
@@ -82,18 +71,15 @@ public class Movie {
         // m.setAdult(jo.getBoolean("adult"));
         // m.setBackdrop_path(jo.getString("backdrop_path"));
         // m.setGenre_ids(jo.getBoolean(""));
-
         m.setId(jo.getInt("id"));
         m.setOriginal_language(jo.getString("original_language"));
         m.setOriginal_title(jo.getString("original_title"));
         m.setOverview(jo.getString("overview"));
         m.setPopularity(jo.getInt("popularity"));
-        // m.setPoster_path(jo.getString("poster_path"));
         m.setRelease_date(jo.getString("release_date"));
-        m.setTitle(jo.getString("title"));
-        m.setVideo(jo.getString("video"));
         m.setVote_average(jo.getInt("vote_average"));
         m.setVote_count(jo.getInt("vote_count"));
+        m.setPoster_path(jo.getString("poster_path"));
         return m;
     }
     
@@ -103,7 +89,6 @@ public class Movie {
         // m.setAdult(jo.getBoolean("adult"));
         // m.setBackdrop_path(jo.getString("backdrop_path"));
         // m.setGenre_ids(jo.getBoolean(""));
-
         m.setId(jo.getInt("id"));
         m.setOriginal_language(jo.getString("original_language"));
         m.setOriginal_title(jo.getString("original_title"));
@@ -111,8 +96,8 @@ public class Movie {
         m.setPopularity(jo.getInt("popularity"));
         m.setPoster_path(jo.getString("poster_path"));
         m.setRelease_date(jo.getString("release_date"));
-        m.setTitle(jo.getString("title"));
-        m.setVideo(jo.getString("video"));
+        // m.setTitle(jo.getString("title"));
+        // m.setVideo(jo.getString("video"));
         m.setVote_average(jo.getInt("vote_average"));
         m.setVote_count(jo.getInt("vote_count"));
         return m;
@@ -127,8 +112,8 @@ public class Movie {
             .add("popularity", popularity)
             .add("poster_path", poster_path)
             .add("release_date", release_date)
-            .add("title", title)
-            .add("video", video)
+            // .add("title", title)
+            // .add("video", video)
             .add("vote_average", vote_average)
             .add("vote_count", vote_count)
             .build();

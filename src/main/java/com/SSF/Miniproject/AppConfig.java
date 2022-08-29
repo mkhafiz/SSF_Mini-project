@@ -28,7 +28,7 @@ public class AppConfig {
     // RedisTemplate is available to us as we added the dependency in when creating the spring package
     // Bean allows us to get the return type RedisTemplate<String, String> to inject to the Qualifier
     @Bean("redislab")
-    public RedisTemplate<String, String> initRedisTemplate() {
+    public RedisTemplate<Integer, String> initRedisTemplate() {
 
         // Configure the Redis database
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
@@ -46,7 +46,7 @@ public class AppConfig {
         jedisFac.afterPropertiesSet();
 
         // Create RedisTemplate
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        RedisTemplate<Integer, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisFac);
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());

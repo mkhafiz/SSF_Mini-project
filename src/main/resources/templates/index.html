@@ -8,38 +8,39 @@
     <title>Movies</title>
     <style>
         .cart {
-				width: 20vw;
-				border: 1px black solid;
-				padding: 10px;
-			}
+            width: 20vw;
+            border: 1px black solid;
+            padding: 10px;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Movies</h1>
+    <h1>Popular Movies</h1>
     <hr>
-
     <!-- <form method="POST" action="/articles"> -->
-        <div data-th-each="m: ${movie}">
-            <table>
-                <tr class="cart">
-                    <td>
-                        <!-- <img data-th-src="${w.imageurl}" alt="" class="image-fluid" width="150" height="150"> -->
-                        <br><br>
-                        <span>ID:</span><span data-th-text="${m.id}"></span>
-                        <br>
-                        <span data-th-text="${m.original_language}"></span>
-                        <span data-th-text="${m.original_title}"></span>
-                        <br><br>
-                        <span data-th-text="${m.overview}"></span>
-                        <span data-th-text="${m.popularity}"></span>
-                        <span data-th-text="${m.poster_path}"></span>
-                        <span data-th-text="${m.release_date}"></span>
-                        <span data-th-text="${m.title}"></span>
-                        <span data-th-text="${m.video}"></span>
-                        <span data-th-text="${m.vote_average}"></span>
-                        <span data-th-text="${m.vote_count}"></span>
-<!-- 
+    <div data-th-each="m: ${movies}">
+        <table>
+            <tr class="cart">
+                <td>
+                    <!-- <img data-th-src="${w.imageurl}" alt="" class="image-fluid" width="150" height="150"> -->
+                    
+                    <span>Title: </span><span data-th-text="${m.original_title}"></span>
+                    <!-- <span>ID: </span><span data-th-text="${m.id}"></span> -->
+                    <br>
+                    <span><img src="https://image.tmdb.org/t/p/w300/{{m.poster_path}}" alt=""></span> <!-- ommit '/' -->
+                    <!-- <span>Language: </span><span data-th-text="${m.original_language}"></span> -->
+                    <br><br>
+                    <span>Overview: </span><br><span data-th-text="${m.overview}"></span>
+                    <br><br>
+                    <span>Release date: </span><span data-th-text="${m.release_date}"></span>
+                    <br>
+                    <span>Popularity: </span><span data-th-text="${m.popularity}"></span>
+                    <br>
+                    <span>Avg vote: </span><span data-th-text="${m.vote_average}"></span>
+                    <!-- <span>Vote count: </span><span data-th-text="${m.vote_count}"></span> -->
+                    <br><br><hr>
+                    <!-- 
                         <span>Categories:</span><span data-th-text="${w.categories}"></span>
                         <br><br>
                         <span>Tags:</span><span data-th-text="${w.tags}"></span>
@@ -52,10 +53,10 @@
 
                         <label for="contents">Save</label>
                         <input type="checkbox" id="contents" name="contents" > -->
-                    </td>
-                </tr>
-            </table>
-        </div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <!-- </form> -->
 </body>
 

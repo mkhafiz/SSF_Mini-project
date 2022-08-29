@@ -11,18 +11,18 @@ public class MovieRepository {
 
     @Autowired
     @Qualifier("redislab")
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<Integer, String> redisTemplate;
 
-    public void save(String id, String payload) {
+    public void save(int id, String payload) {
 
-        ValueOperations<String, String> valueOp = redisTemplate.opsForValue();
+        ValueOperations<Integer, String> valueOp = redisTemplate.opsForValue();
         valueOp.set(id, payload); // , Duration.ofSeconds(cacheTime)
         System.out.printf("%s is saved\n", id);
     }
 
-    public String get(String id) {
+    public String get(int id) {
 
-        ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
+        ValueOperations<Integer, String> valueOps = redisTemplate.opsForValue();
         String value = valueOps.get(id);
         System.out.printf("%s retrieved successfully\n", id);
         return value;
