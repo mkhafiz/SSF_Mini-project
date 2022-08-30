@@ -28,7 +28,10 @@
                     <span>Title: </span><span data-th-text="${m.original_title}"></span>
                     <!-- <span>ID: </span><span data-th-text="${m.id}"></span> -->
                     <br>
-                    <span><img src="https://image.tmdb.org/t/p/w300/{{m.poster_path}}" alt=""></span> <!-- ommit '/' -->
+                    <span><img src="https://image.tmdb.org/t/p/w300/{{m.poster_path}}" alt=""></span> 
+                    <!-- <span><img data-th-src="@{https://image.tmdb.org/t/p/w154/${m.poster_path}}" alt=""></span>  -->
+
+                    <!-- <span><img data-th-src="@{https://image.tmdb.org/t/p/w300/{poster_path}(poster_path=${m.poster_path})}" alt=""></span>  -->
                     <!-- <span>Language: </span><span data-th-text="${m.original_language}"></span> -->
                     <br><br>
                     <span>Overview: </span><br><span data-th-text="${m.overview}"></span>

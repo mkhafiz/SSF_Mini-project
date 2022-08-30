@@ -29,7 +29,7 @@ public class MovieController {
 
     // no need for parameter + @requestparam
     @GetMapping(path = "/")
-    public String getArticles(Model model, HttpSession sess) {
+    public String getMovies(Model model, HttpSession sess) {
 
         List<Movie> movies = movieSvc.getMovies();
         sess.setAttribute("sess", movies);
@@ -43,28 +43,28 @@ public class MovieController {
         // return "index";
     }
 
-    // @PostMapping(path = "/movies")
-    // public String savedMovie(HttpSession sess) {
+    @PostMapping(path = "/movies")
+    public String savedMovie(HttpSession sess) {
 
-    // List<Movie> myMovies = (List<Movie>) sess.getAttribute("sess");
-    // for (int i = 0; i < 10; i++) {
-    // String payload = Json.createObjectBuilder()
-    // .add("id", myMovies.get(i).getId())
-    // .add("original_language", myMovies.get(i).getOriginal_language())
-    // .add("original_title", myMovies.get(i).getOriginal_title())
-    // .add("overview", myMovies.get(i).getOverview())
-    // .add("popularity", myMovies.get(i).getPopularity())
-    // // .add("poster_path", myMovies.get(i).getPoster_path())
-    // .add("release_date", myMovies.get(i).getRelease_date())
-    // // .add("title", myMovies.get(i).getTitle())
-    // // .add("video", myMovies.get(i).getVideo())
-    // .add("vote_average", myMovies.get(i).getVote_average())
-    // .add("vote_count", myMovies.get(i).getVote_count())
-    // .build().toString();
+    List<Movie> myMovies = (List<Movie>) sess.getAttribute("sess");
+    for (int i = 0; i < 10; i++) {
+    String payload = Json.createObjectBuilder()
+    .add("id", myMovies.get(i).getId())
+    .add("original_language", myMovies.get(i).getOriginal_language())
+    .add("original_title", myMovies.get(i).getOriginal_title())
+    .add("overview", myMovies.get(i).getOverview())
+    .add("popularity", myMovies.get(i).getPopularity())
+    .add("poster_path", myMovies.get(i).getPoster_path())
+    .add("release_date", myMovies.get(i).getRelease_date())
+    // .add("title", myMovies.get(i).getTitle())
+    // .add("video", myMovies.get(i).getVideo())
+    .add("vote_average", myMovies.get(i).getVote_average())
+    .add("vote_count", myMovies.get(i).getVote_count())
+    .build().toString();
 
-    // movieSvc.saveToRepo(myMovies.get(i).getId(), payload);
-    // }
-    // System.out.println("All Saved");
-    // return "redirect:/";
-    // }
+    movieSvc.saveToRepo(myMovies.get(i).getId(), payload);
+    }
+    System.out.println("All Saved");
+    return "redirect:/";
+    }
 }
