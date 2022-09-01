@@ -48,7 +48,6 @@ public class AppConfig {
         // Create RedisTemplate
         RedisTemplate<Integer, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisFac);
-
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new StringRedisSerializer());
 

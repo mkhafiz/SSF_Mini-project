@@ -51,12 +51,8 @@ public class Movie {
     public int getVote_count() { return vote_count; }
     public void setVote_count(int vote_count) { this.vote_count = vote_count; }
 
-    public String getPoster_path() {
-        return poster_path;
-    }
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
-    }
+    public String getPoster_path() { return poster_path; }
+    public void setPoster_path(String poster_path) { this.poster_path = poster_path; }
 
 
     public static Movie createNew(String jsonStr) {
@@ -67,7 +63,6 @@ public class Movie {
 
     public static Movie createNew(JsonObject jo) {
         Movie m = new Movie();
-        // needed or not
         // m.setAdult(jo.getBoolean("adult"));
         // m.setBackdrop_path(jo.getString("backdrop_path"));
         // m.setGenre_ids(jo.getBoolean(""));
@@ -85,7 +80,6 @@ public class Movie {
     
     public static Movie create(JsonObject jo) {
         Movie m = new Movie();
-        // // needed or not
         // m.setAdult(jo.getBoolean("adult"));
         // m.setBackdrop_path(jo.getString("backdrop_path"));
         // m.setGenre_ids(jo.getBoolean(""));
