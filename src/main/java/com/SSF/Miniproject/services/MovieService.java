@@ -26,8 +26,9 @@ import jakarta.json.JsonReader;
 @Service
 public class MovieService {
 
-    private static final String URL = "https://api.themoviedb.org/3/discover/movie";
+    private static final String URL = "https://api.themoviedb.org/3/trending/all/week";
     // https://api.themoviedb.org/3/trending/all/week
+    // https://api.themoviedb.org/3/discover/movie (initial)
 
     @Value("${API_KEY}")
     private String key;
@@ -38,7 +39,7 @@ public class MovieService {
     public List<Movie> getMovies() {
 
         String url = UriComponentsBuilder.fromUriString(URL)
-                .queryParam("sort_by", "popularity.desc/550")
+                // .queryParam("sort_by", "popularity.desc/550")
                 .queryParam("api_key", key)
                 .toUriString();
         System.out.println(url);

@@ -16,7 +16,7 @@ public class MovieRepository {
     public void save(int id, String payload) {
 
         ValueOperations<Integer, String> valueOp = redisTemplate.opsForValue();
-        valueOp.set(id, payload); // , Duration.ofSeconds(cacheTime)
+        valueOp.set(id, payload); 
         System.out.printf("%s is saved\n", id);
     }
 

@@ -1,7 +1,6 @@
 package com.SSF.Miniproject.models;
 
 import java.io.StringReader;
-import java.util.List;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -14,7 +13,7 @@ public class Movie {
     // public String backdrop_path;
     // public List<Integer> genre_ids; // or int 
     public String poster_path;
-    // public String title;
+    public String title;
     // public String video;
     public int id;
     public String original_language;
@@ -29,12 +28,10 @@ public class Movie {
     public void setId(int string) { this.id = string; }
 
     public String getOriginal_language() { return original_language; }
-    public void setOriginal_language(String original_language) {
-        this.original_language = original_language; }
+    public void setOriginal_language(String original_language) { this.original_language = original_language; }
 
     public String getOriginal_title() { return original_title; }
-    public void setOriginal_title(String original_title) {
-        this.original_title = original_title; }
+    public void setOriginal_title(String original_title) { this.original_title = original_title; }
 
     public String getOverview() { return overview; }
     public void setOverview(String overview) { this.overview = overview; }
@@ -54,6 +51,9 @@ public class Movie {
     public String getPoster_path() { return poster_path; }
     public void setPoster_path(String poster_path) { this.poster_path = poster_path; }
 
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }     
+    
 
     public static Movie createNew(String jsonStr) {
         StringReader strReader = new StringReader(jsonStr);
@@ -63,12 +63,9 @@ public class Movie {
 
     public static Movie createNew(JsonObject jo) {
         Movie m = new Movie();
-        // m.setAdult(jo.getBoolean("adult"));
-        // m.setBackdrop_path(jo.getString("backdrop_path"));
-        // m.setGenre_ids(jo.getBoolean(""));
         m.setId(jo.getInt("id"));
         m.setOriginal_language(jo.getString("original_language"));
-        m.setOriginal_title(jo.getString("original_title"));
+        m.setTitle(jo.getString("title"));
         m.setOverview(jo.getString("overview"));
         m.setPopularity(jo.getInt("popularity"));
         m.setRelease_date(jo.getString("release_date"));
@@ -80,18 +77,14 @@ public class Movie {
     
     public static Movie create(JsonObject jo) {
         Movie m = new Movie();
-        // m.setAdult(jo.getBoolean("adult"));
-        // m.setBackdrop_path(jo.getString("backdrop_path"));
-        // m.setGenre_ids(jo.getBoolean(""));
         m.setId(jo.getInt("id"));
         m.setOriginal_language(jo.getString("original_language"));
-        m.setOriginal_title(jo.getString("original_title"));
+        // m.setTitle(jo.getString("title"));
+        // m.setOriginal_title(jo.getString("original_title"));
         m.setOverview(jo.getString("overview"));
         m.setPopularity(jo.getInt("popularity"));
+        // m.setRelease_date(jo.getString("release_date"));
         m.setPoster_path(jo.getString("poster_path"));
-        m.setRelease_date(jo.getString("release_date"));
-        // m.setTitle(jo.getString("title"));
-        // m.setVideo(jo.getString("video"));
         m.setVote_average(jo.getInt("vote_average"));
         m.setVote_count(jo.getInt("vote_count"));
         return m;
@@ -101,15 +94,14 @@ public class Movie {
         return Json.createObjectBuilder()
             .add("id", id)
             .add("original_language", original_language)
-            .add("original_title", original_title)
+            .add("title", title)
             .add("overview", overview)
             .add("popularity", popularity)
             .add("poster_path", poster_path)
             .add("release_date", release_date)
-            // .add("title", title)
-            // .add("video", video)
             .add("vote_average", vote_average)
             .add("vote_count", vote_count)
             .build();
     }
+
 }
