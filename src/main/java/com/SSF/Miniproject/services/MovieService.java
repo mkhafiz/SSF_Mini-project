@@ -26,8 +26,7 @@ import jakarta.json.JsonReader;
 @Service
 public class MovieService {
 
-    private static final String URL = "https://api.themoviedb.org/3/trending/all/week";
-    // https://api.themoviedb.org/3/trending/all/week
+    private static final String URL = "https://api.themoviedb.org/3/trending/all/week"; //weekly trending
     // https://api.themoviedb.org/3/discover/movie (initial)
 
     @Value("${API_KEY}")

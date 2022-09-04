@@ -36,6 +36,11 @@ public class MovieController {
     @Autowired
     private MovieService movieSvc;
 
+    @RequestMapping(path = { "/login" })
+    public String test() {
+        return "login";
+    }
+
     @GetMapping(path = "/")
     public String getMovies(Model model, HttpSession sess) {
 

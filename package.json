@@ -1,0 +1,26 @@
+{
+  "name": "mini-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkhafiz/SSF_Mini-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkhafiz/SSF_Mini-project/issues"
+  },
+  "homepage": "https://github.com/mkhafiz/SSF_Mini-project#readme",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  }
+}

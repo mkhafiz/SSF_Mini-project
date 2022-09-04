@@ -95,6 +95,7 @@ public class Movie {
             .add("id", id)
             .add("original_language", original_language)
             .add("title", title)
+            .add("original_title", original_title)
             .add("overview", overview)
             .add("popularity", popularity)
             .add("poster_path", poster_path)
