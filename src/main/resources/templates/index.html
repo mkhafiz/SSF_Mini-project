@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
     <title>Movies</title>
     <style>
         .cart {
@@ -22,23 +23,34 @@
     <hr>
     <!-- <form method="POST" action="/articles"> -->
     <div data-th-each="m: ${movies}">
+
         <table class="table table-dark">
             <tr class="table-active">
                 <td>
+
+                    <!-- pakai card - bootstrap -->
+                    
+
                     <!-- <img data-th-src="${w.imageurl}" alt="" class="image-fluid" width="150" height="150"> -->
 
-                    <span>Title: </span><span data-th-text="${m.title}"></span>
+                    <!-- <span>Title: </span><span data-th-text="${m.title}"></span>
                     <span data-th-text="${m.original_title}"></span>
+                    <br> -->
+
                     <!-- <span>ID: </span><span data-th-text="${m.id}"></span> -->
-                    <br>
                     <!-- <span><img src="https://image.tmdb.org/t/p/w300/{{m.poster_path}}" alt=""></span>  -->
                     <!-- <span><img data-th-src="@{https://image.tmdb.org/t/p/w154/${m.poster_path}}" alt=""></span>  -->
 
-                    <span><img
+                    <span>
+                        <img
                             data-th-src="@{https://image.tmdb.org/t/p/w154/{poster_path}(poster_path=${m.poster_path})}"
-                            alt=""></span>
+                            class="rounded float-start" alt=""></span>
+
+                            <!-- <p>hello</p> -->
+
                     <!-- <span>Language: </span><span data-th-text="${m.original_language}"></span> -->
-                    <br><br>
+
+                    <!-- <br><br>
                     <span>Overview: </span><br><span data-th-text="${m.overview}"></span>
                     <br><br>
                     <span>Release date: </span><span data-th-text="${m.release_date}"></span>
@@ -46,10 +58,10 @@
                     <span>Popularity: </span><span data-th-text="${m.popularity}"></span>
                     <br>
                     <span>Avg vote: </span><span data-th-text="${m.vote_average}"></span>
+                    <br><br>
+                    <hr> -->
 
                     <!-- <span>Vote count: </span><span data-th-text="${m.vote_count}"></span> -->
-                    <br><br>
-                    <hr>
                     <!-- 
                         <span>Categories:</span><span data-th-text="${w.categories}"></span>
                         <br><br>
@@ -63,11 +75,14 @@
 
                         <label for="contents">Save</label>
                         <input type="checkbox" id="contents" name="contents" > -->
-                </td>
+                
+                    </td>
             </tr>
         </table>
     </div>
     <!-- </form> -->
+    
+    <!-- <script src="js/bootstrap.js"></script> -->
 </body>
 
 </html>
