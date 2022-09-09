@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div data-th-each="m: ${movies}">
+        <table class="table table-dark">
+            <tr class="table-active">
+                <td>
+
+
+                    <span>Title: </span><span data-th-text="${m.title}"></span>
+                    <span data-th-text="${m.original_title}"></span>
+                    <br>
+                    <span>Release date: </span><span data-th-text="${m.release_date}"></span>
+                    <span>Overview: </span><br><span data-th-text="${m.overview}"></span>
+
+
+                    <span>
+                        <img data-th-src="@{https://image.tmdb.org/t/p/w154/{poster_path}(poster_path=${m.poster_path})}"
+                            class="rounded float-start" alt=""></span>
+
+<!-- 
+                    <form action="/action_page.php">
+
+                        <label for="contents">Save</label>
+                        <input type="checkbox" id="contents" name="contents">  -->
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+
+</body>
+
+</html>

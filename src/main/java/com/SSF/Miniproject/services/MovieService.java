@@ -35,6 +35,8 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepo;
 
+    // refer to weather
+
     public List<Movie> getMovies() {
 
         String url = UriComponentsBuilder.fromUriString(URL)

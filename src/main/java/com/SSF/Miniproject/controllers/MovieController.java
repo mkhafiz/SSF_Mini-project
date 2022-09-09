@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.SSF.Miniproject.models.Movie;
+import com.SSF.Miniproject.models.MovieSearch;
+import com.SSF.Miniproject.services.MovieSearchService;
 import com.SSF.Miniproject.services.MovieService;
 
 import info.movito.themoviedbapi.TmdbApi;
@@ -24,22 +27,31 @@ import jakarta.json.Json;
 @RequestMapping
 public class MovieController {
 
-    // 1 Req = POST & GET request -->
+    // 1 Req = POST & GET request --> search + detail/save + home + login + index (card?)
     // 2 Req = @PathVariable
     // 3 Req = Support more than 1 user
     // 4 Req = min 3 views
-    // 5 Req = Bootstrap
-    // 6 Req = Deploy to heroku for every release
-
-    // Work on getting result displayed !!!
 
     @Autowired
     private MovieService movieSvc;
+    private MovieSearchService searchSvc;
+
 
     @RequestMapping(path = { "/login" })
     public String test() {
         return "login";
     }
+
+    // WIP -> path + page +
+    @GetMapping
+    public String searchMovies(Model model, HttpSession sess, @RequestParam String key) {
+        List<MovieSearch> search = searchSvc.searchMovies(key);
+        sess.setAttribute("sess", search);
+        model.addAttribute("search", search);
+        model.addAttribute("key", key);
+        return "index";
+    }
+
 
     @GetMapping(path = "/")
     public String getMovies(Model model, HttpSession sess) {
