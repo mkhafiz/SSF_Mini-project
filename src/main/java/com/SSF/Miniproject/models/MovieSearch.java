@@ -14,7 +14,6 @@ public class MovieSearch {
    public int id;
    public String original_title;
    public String original_language;
-   public String title;
    public String backdrop_path;
    public int total_results;
    public int total_pages;
@@ -37,9 +36,6 @@ public void setOriginal_title(String original_title) {    this.original_title = 
 public String getOriginal_language() {    return original_language;}
 public void setOriginal_language(String original_language) {    this.original_language = original_language;}
 
-public String getTitle() {    return title;}
-public void setTitle(String title) {    this.title = title;}
-
 public String getBackdrop_path() {    return backdrop_path;}
 public void setBackdrop_path(String backdrop_path) {    this.backdrop_path = backdrop_path;}
 
@@ -59,7 +55,7 @@ public static MovieSearch createNew(String jsonStr) {
 public static MovieSearch createNew(JsonObject jo) {
     MovieSearch s = new MovieSearch();
         s.setId(jo.getInt("id"));
-        s.setTitle(jo.getString("title"));
+        s.setOriginal_title(jo.getString("original_title"));
         s.setOverview(jo.getString("overview"));
         s.setRelease_date(jo.getString("release_date"));
         s.setTotal_pages(jo.getInt("total_results"));
@@ -71,7 +67,7 @@ public static MovieSearch createNew(JsonObject jo) {
     public static MovieSearch create(JsonObject jo) {
         MovieSearch s = new MovieSearch();
         s.setId(jo.getInt("id"));
-        s.setTitle(jo.getString("title"));
+        s.setOriginal_title(jo.getString("original_title"));
         s.setOverview(jo.getString("overview"));
         s.setRelease_date(jo.getString("release_date"));
         s.setTotal_pages(jo.getInt("total_results"));
@@ -79,5 +75,36 @@ public static MovieSearch createNew(JsonObject jo) {
         s.setBackdrop_path(jo.getString("backdrop_path"));
         return s;
     }
-    
+    // whats the diff + which one to use
+
+    public static MovieSearch specMovie(
+        int id, String backdrop_path, String original_title, String overview, 
+        String release_date
+        ) {
+            MovieSearch s = new MovieSearch();
+
+            s.setId(id);
+            s.setBackdrop_path(backdrop_path);
+            s.setOriginal_title(original_title);
+            s.setOverview(overview);
+            s.setRelease_date(release_date);
+            // s.setTotal_pages(total_results);
+            // s.setTotal_results(total_pages);
+
+            // cos OUTSIDE "RESULT"
+
+            return s;
+    }
+
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+            .add("id", id)
+            .add("original_title", original_title)
+            .add("overview", overview)
+            .add("release_date", release_date)
+            .add("total_results", total_results)
+            .add("total_pages", total_pages)
+            .add("backdrop_path", backdrop_path)
+            .build();
+    }
 }

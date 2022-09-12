@@ -10,24 +10,23 @@
 
 <body>
 
-    <div data-th-each="m: ${movies}">
+    <div data-th-each="s: ${search}">
         <table class="table table-dark">
             <tr class="table-active">
                 <td>
 
-
-                    <span>Title: </span><span data-th-text="${m.title}"></span>
-                    <span data-th-text="${m.original_title}"></span>
+                    <span>Title: </span><span data-th-text="${s.title}"></span>
+                    <span data-th-text="${s.original_title}"></span>
                     <br>
-                    <span>Release date: </span><span data-th-text="${m.release_date}"></span>
-                    <span>Overview: </span><br><span data-th-text="${m.overview}"></span>
+                    <span>Release date: </span><span data-th-text="${s.release_date}"></span>
+                    <span>Overview: </span><br><span data-th-text="${s.overview}"></span>
 
-
+                    <!-- w92 -->
                     <span>
-                        <img data-th-src="@{https://image.tmdb.org/t/p/w154/{poster_path}(poster_path=${m.poster_path})}"
+                        <img data-th-src="@{https://image.tmdb.org/t/p/w92/{poster_path}(poster_path=${s.poster_path})}"
                             class="rounded float-start" alt=""></span>
 
-<!-- 
+                    <!-- 
                     <form action="/action_page.php">
 
                         <label for="contents">Save</label>
@@ -40,5 +39,4 @@
     </form>
 
 </body>
-
 </html>

@@ -2,9 +2,10 @@ package com.SSF.Miniproject.services;
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.SSF.Miniproject.models.Movie;
+import com.SSF.Miniproject.models.MovieSearch;
 import com.SSF.Miniproject.repositories.MovieRepository;
 
 import jakarta.json.Json;
@@ -26,8 +28,8 @@ import jakarta.json.JsonReader;
 @Service
 public class MovieService {
 
-    private static final String URL = "https://api.themoviedb.org/3/trending/all/week"; //weekly trending
-    // https://api.themoviedb.org/3/discover/movie (initial)
+    private static final String trendURL = "https://api.themoviedb.org/3/trending/all/week"; 
+    private static final String searchURL = "https://api.themoviedb.org/3/search/movie"; 
 
     @Value("${API_KEY}")
     private String key;
@@ -35,30 +37,19 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepo;
 
-    // refer to weather
+    public List<Movie> trendMovies() {
 
-    public List<Movie> getMovies() {
-
-        String url = UriComponentsBuilder.fromUriString(URL)
-                // .queryParam("sort_by", "popularity.desc/550")
+        String url = UriComponentsBuilder.fromUriString(trendURL)
                 .queryParam("api_key", key)
                 .toUriString();
         System.out.println(url);
 
         // Create the GET request, GET url
         RequestEntity<Void> req = RequestEntity.get(url).build();
+
         // calling API
         RestTemplate template = new RestTemplate();
-        ResponseEntity<String> resp; // = template.exchange(req, String.class);
-
-        try {
-            // Throws an exception if status code not in between 200 - 399
-            // Get response from the client with our request
-            resp = template.exchange(req, String.class);
-        } catch (Exception ex) {
-            System.err.printf("Error: %s\n", ex.getMessage());
-            return Collections.emptyList();
-        }
+        ResponseEntity<String> resp = template.exchange(req, String.class);
 
         // Get the payload and do something with it
         String payload = resp.getBody();
@@ -78,6 +69,83 @@ public class MovieService {
             list.add(Movie.create(jo));
         }
         return list;
+    }
+
+    public List<MovieSearch> searchMovie(String word) {
+
+        String url = UriComponentsBuilder.fromUriString(searchURL)
+                .queryParam("include_adult", "false")
+                .queryParam("api_key", key)
+                .queryParam("query", word)
+                .toUriString();
+
+        // Create the GET request, GET url
+        RequestEntity<Void> req = RequestEntity.get(url).build();
+        // calling API
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<String> resp = template.exchange(req, String.class);
+
+        // Get the payload and do something with it
+        String payload = resp.getBody();
+        System.out.println("payload: " + payload);
+
+        // Convert the String payload to JsonObject
+        Reader strReader = new StringReader(payload);
+        JsonReader jsonReader = Json.createReader(strReader);
+        JsonObject movieResult = jsonReader.readObject();
+        // get JsonArray "Data"
+        JsonArray movieData = movieResult.getJsonArray("results");
+        List<MovieSearch> list = new LinkedList<>();
+
+        // loop to get each object in array -> create method to create article
+        for (int i = 0; i < movieData.size(); i++) {
+            JsonObject jo = movieData.getJsonObject(i);
+            list.add(MovieSearch.create(jo));
+        }
+        return list;
+    }
+
+    public List<MovieSearch> detailMovie(Integer id) {
+        
+        Map<Integer, String> urlParams = new HashMap<>();
+        urlParams.put(id, "id");
+
+        String url = UriComponentsBuilder.fromUriString(searchURL)
+                .queryParam("api_key", key)
+                .buildAndExpand(urlParams)
+                .toUriString();
+
+        // Create the GET request, GET url
+        RequestEntity<Void> req = RequestEntity.get(url).build();
+        // calling API
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<String> resp = template.exchange(req, String.class);
+
+        // Get the payload and do something with it
+        String payload = resp.getBody();
+        System.out.println("payload: " + payload);
+
+        // Convert the String payload to JsonObject
+        Reader strReader = new StringReader(payload);
+        JsonReader jsonReader = Json.createReader(strReader);
+        JsonObject movieResult = jsonReader.readObject();
+        // get JsonArray "Data"
+        // JsonArray movieData = movieResult.getJsonArray("results");
+        List<MovieSearch> list = new LinkedList<>();
+
+            JsonObject results = movieResult.getJsonObject("results");
+            String backdrop_path = results.getString(backdrop_path);
+            String original_title = results.getString(original_title);
+            String overview = results.getString(overview);
+            String release_date = results.getString(release_date);
+
+            // Integer total_results = results.getString(total_results);
+            // Integer total_pages = results.getString(total_pages);
+
+            list.add(MovieSearch.specMovie(id, backdrop_path, original_title, overview, 
+             release_date));
+
+             return list;
     }
 
     public void saveToRepo(int i, String payload) {

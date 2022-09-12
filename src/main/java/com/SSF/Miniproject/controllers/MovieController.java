@@ -14,63 +14,76 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.SSF.Miniproject.models.Movie;
 import com.SSF.Miniproject.models.MovieSearch;
-import com.SSF.Miniproject.services.MovieSearchService;
 import com.SSF.Miniproject.services.MovieService;
 
-import info.movito.themoviedbapi.TmdbApi;
-import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.TmdbMovies.MovieMethod;
-import info.movito.themoviedbapi.model.MovieDb;
 import jakarta.json.Json;
 
 @Controller
 @RequestMapping
 public class MovieController {
 
-    // 1 Req = POST & GET request --> search + detail/save + home + login + index (card?)
+    // 1 Req = POST & GET request --> search + detail/save + home + login + index
+    // (card?)
     // 2 Req = @PathVariable
     // 3 Req = Support more than 1 user
     // 4 Req = min 3 views
 
     @Autowired
     private MovieService movieSvc;
-    private MovieSearchService searchSvc;
 
-
-    @RequestMapping(path = { "/login" })
-    public String test() {
-        return "login";
-    }
-
-    // WIP -> path + page +
-    @GetMapping
-    public String searchMovies(Model model, HttpSession sess, @RequestParam String key) {
-        List<MovieSearch> search = searchSvc.searchMovies(key);
-        sess.setAttribute("sess", search);
-        model.addAttribute("search", search);
-        model.addAttribute("key", key);
-        return "index";
-    }
-
-
-    @GetMapping(path = "/")
-    public String getMovies(Model model, HttpSession sess) {
-
-        List<Movie> movies = movieSvc.getMovies();
-        sess.setAttribute("sess", movies);
-        model.addAttribute("movies", movies);
-        return "index";
-
-        // TmdbMovies movie = new
+    // TmdbMovies movie = new
         // TmdbApi("ec6d862bc5e4d8d19702e33728e1980a").getMovies();
         // MovieDb movies = movie.getMovie(78, "en", MovieMethod.credits,
         // MovieMethod.images, MovieMethod.similar);
         // sess.setAttribute("sess", movie);
         // model.addAttribute("movie", movie);
         // return "index";
+
+    // path + return = home
+    @RequestMapping(path = { "/home" })
+    public String homePage() {
+        return "home";
     }
 
-    @PostMapping(path = "/movies")
+    // WIP -> path + page +
+    @GetMapping(path = "/search")
+    public String searchMovies(Model model, @RequestParam String word) {
+        List<MovieSearch> search = movieSvc.searchMovie(word);
+        model.addAttribute("search", search);
+        model.addAttribute("word", word);
+        return "search";
+    }
+
+    @GetMapping(path = "/")
+    public String getMovies(Model model, HttpSession sess) {
+
+        List<Movie> movies = movieSvc.trendMovies();
+        sess.setAttribute("sess", movies);
+        model.addAttribute("movies", movies);
+        return "index";
+
+    }
+
+    // <-- Imported -->
+
+    // @GetMapping(path="/explore")
+    // public String getBooks(Model model, @RequestParam String book) { 
+    //     List<Book> bookResults = bookSvc.exploreBooks(book);
+    //     model.addAttribute("book", book);
+    //     model.addAttribute("results", bookResults);
+
+    //     return "explore";
+    // }
+
+    // @GetMapping( path = "/explore/{id}")
+    // public String getBookById(Model model, @PathVariable String id) {
+    //     List<Book> bookDetails = bookSvc.bookDetails(id);
+    //     model.addAttribute("details", bookDetails);
+    //     return "book";
+    // }
+    
+
+    @PostMapping(path = "/movies") // edit PATH
     public String savedMovie(HttpSession sess) {
 
         List<Movie> myMovies = (List<Movie>) sess.getAttribute("sess");

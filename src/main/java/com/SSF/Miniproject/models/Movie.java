@@ -64,7 +64,7 @@ public class Movie {
     public static Movie createNew(JsonObject jo) {
         Movie m = new Movie();
         m.setId(jo.getInt("id"));
-        m.setOriginal_language(jo.getString("original_language"));
+        // m.setOriginal_language(jo.getString("original_language"));
         m.setTitle(jo.getString("title"));
         m.setOverview(jo.getString("overview"));
         m.setPopularity(jo.getInt("popularity"));
@@ -105,4 +105,5 @@ public class Movie {
             .build();
     }
 
+    
 }
