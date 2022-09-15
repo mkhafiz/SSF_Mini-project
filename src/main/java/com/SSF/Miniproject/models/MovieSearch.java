@@ -46,6 +46,17 @@ public int getTotal_pages() {    return total_pages;}
 public void setTotal_pages(int total_pages) {    this.total_pages = total_pages;}
 
 
+public static MovieSearch createMovie(int id,  String original_title, String overview, String release_date) {
+    MovieSearch movieData = new MovieSearch();
+
+    movieData.setId(id);
+    // movieData.setPoster_path(poster_path);
+    movieData.setOriginal_title(original_title);
+    movieData.setOverview(overview);
+    movieData.setRelease_date(release_date);
+    return movieData;
+}
+
 public static MovieSearch createNew(String jsonStr) {
     StringReader strReader = new StringReader(jsonStr);
     JsonReader reader = Json.createReader(strReader);

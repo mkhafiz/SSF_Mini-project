@@ -2,6 +2,7 @@ package com.SSF.Miniproject.services;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class MovieService {
 
     private static final String trendURL = "https://api.themoviedb.org/3/trending/all/week"; 
     private static final String searchURL = "https://api.themoviedb.org/3/search/movie"; 
+    private static final String searchIdURL = "https://api.themoviedb.org/3/search/movie/{id}"; 
 
     @Value("${API_KEY}")
     private String key;
@@ -95,22 +97,31 @@ public class MovieService {
         JsonObject movieResult = jsonReader.readObject();
         // get JsonArray "Data"
         JsonArray movieData = movieResult.getJsonArray("results");
-        List<MovieSearch> list = new LinkedList<>();
 
+        List<MovieSearch> list = new LinkedList<>();
         // loop to get each object in array -> create method to create article
         for (int i = 0; i < movieData.size(); i++) {
+
             JsonObject jo = movieData.getJsonObject(i);
-            list.add(MovieSearch.create(jo));
+            Integer id= jo.getInt("id");
+            // String poster_path = jo.getString("poster_path");
+            String original_title = jo.getString("original_title");
+            String overview = jo.getString("overview");
+            String release_date = jo.getString("release_date");
+            
+            list.add(MovieSearch.createMovie(id, original_title, 
+            overview, release_date));
         }
         return list;
     }
 
     public List<MovieSearch> detailMovie(Integer id) {
         
+        // simpan?
         Map<Integer, String> urlParams = new HashMap<>();
         urlParams.put(id, "id");
 
-        String url = UriComponentsBuilder.fromUriString(searchURL)
+        String url = UriComponentsBuilder.fromUriString(searchIdURL)
                 .queryParam("api_key", key)
                 .buildAndExpand(urlParams)
                 .toUriString();
@@ -131,13 +142,13 @@ public class MovieService {
         JsonObject movieResult = jsonReader.readObject();
         // get JsonArray "Data"
         // JsonArray movieData = movieResult.getJsonArray("results");
-        List<MovieSearch> list = new LinkedList<>();
+        ArrayList<MovieSearch> list = new ArrayList<>();
 
             JsonObject results = movieResult.getJsonObject("results");
-            String backdrop_path = results.getString(backdrop_path);
-            String original_title = results.getString(original_title);
-            String overview = results.getString(overview);
-            String release_date = results.getString(release_date);
+            String backdrop_path = results.getString("backdrop_path");
+            String original_title = results.getString("original_title");
+            String overview = results.getString("overview");
+            String release_date = results.getString("release_date");
 
             // Integer total_results = results.getString(total_results);
             // Integer total_pages = results.getString(total_pages);

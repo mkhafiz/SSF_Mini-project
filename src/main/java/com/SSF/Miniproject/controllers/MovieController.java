@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,6 @@ import jakarta.json.Json;
 public class MovieController {
 
     // 1 Req = POST & GET request --> search + detail/save + home + login + index
-    // (card?)
     // 2 Req = @PathVariable
     // 3 Req = Support more than 1 user
     // 4 Req = min 3 views
@@ -32,12 +32,13 @@ public class MovieController {
     private MovieService movieSvc;
 
     // TmdbMovies movie = new
-        // TmdbApi("ec6d862bc5e4d8d19702e33728e1980a").getMovies();
-        // MovieDb movies = movie.getMovie(78, "en", MovieMethod.credits,
-        // MovieMethod.images, MovieMethod.similar);
-        // sess.setAttribute("sess", movie);
-        // model.addAttribute("movie", movie);
-        // return "index";
+    // TmdbApi("ec6d862bc5e4d8d19702e33728e1980a").getMovies();
+    // MovieDb movies = movie.getMovie(78, "en", MovieMethod.credits,
+    // MovieMethod.images, MovieMethod.similar);
+    // sess.setAttribute("sess", movie);
+    // model.addAttribute("movie", movie);
+    // return "index";
+
 
     // path + return = home
     @RequestMapping(path = { "/home" })
@@ -45,7 +46,16 @@ public class MovieController {
         return "home";
     }
 
-    // WIP -> path + page +
+    // Trending wk
+    @GetMapping(path = "/")
+    public String trendMovies(Model model, HttpSession sess) {
+        List<Movie> movies = movieSvc.trendMovies();
+        sess.setAttribute("sess", movies);
+        model.addAttribute("movies", movies);
+        return "index";
+    }
+
+    // WIP (search)
     @GetMapping(path = "/search")
     public String searchMovies(Model model, @RequestParam String word) {
         List<MovieSearch> search = movieSvc.searchMovie(word);
@@ -54,34 +64,13 @@ public class MovieController {
         return "search";
     }
 
-    @GetMapping(path = "/")
-    public String getMovies(Model model, HttpSession sess) {
-
-        List<Movie> movies = movieSvc.trendMovies();
-        sess.setAttribute("sess", movies);
-        model.addAttribute("movies", movies);
-        return "index";
-
+    // Detailed page
+    @GetMapping( path = "/search/{id}")
+    public String getBookById(Model model, @PathVariable int id) {
+    List<MovieSearch> movieDetails = movieSvc.detailMovie(id);
+    model.addAttribute("details", movieDetails);
+    return "book";
     }
-
-    // <-- Imported -->
-
-    // @GetMapping(path="/explore")
-    // public String getBooks(Model model, @RequestParam String book) { 
-    //     List<Book> bookResults = bookSvc.exploreBooks(book);
-    //     model.addAttribute("book", book);
-    //     model.addAttribute("results", bookResults);
-
-    //     return "explore";
-    // }
-
-    // @GetMapping( path = "/explore/{id}")
-    // public String getBookById(Model model, @PathVariable String id) {
-    //     List<Book> bookDetails = bookSvc.bookDetails(id);
-    //     model.addAttribute("details", bookDetails);
-    //     return "book";
-    // }
-    
 
     @PostMapping(path = "/movies") // edit PATH
     public String savedMovie(HttpSession sess) {
