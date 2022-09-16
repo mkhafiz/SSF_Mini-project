@@ -29,9 +29,9 @@ import jakarta.json.JsonReader;
 @Service
 public class MovieService {
 
-    private static final String trendURL = "https://api.themoviedb.org/3/trending/all/week"; 
-    private static final String searchURL = "https://api.themoviedb.org/3/search/movie"; 
-    private static final String searchIdURL = "https://api.themoviedb.org/3/search/movie/{id}"; 
+    private static String trendURL = "https://api.themoviedb.org/3/trending/all/week";
+    private static String searchURL = "https://api.themoviedb.org/3/search/movie";
+    private static String searchIdURL = "https://api.themoviedb.org/3/movie/{id}";
 
     @Value("${API_KEY}")
     private String key;
@@ -44,7 +44,6 @@ public class MovieService {
         String url = UriComponentsBuilder.fromUriString(trendURL)
                 .queryParam("api_key", key)
                 .toUriString();
-        System.out.println(url);
 
         // Create the GET request, GET url
         RequestEntity<Void> req = RequestEntity.get(url).build();
@@ -72,6 +71,7 @@ public class MovieService {
         }
         return list;
     }
+    
 
     public List<MovieSearch> searchMovie(String word) {
 
@@ -103,31 +103,49 @@ public class MovieService {
         for (int i = 0; i < movieData.size(); i++) {
 
             JsonObject jo = movieData.getJsonObject(i);
-            Integer id= jo.getInt("id");
+            Integer id = jo.getInt("id");
             // String poster_path = jo.getString("poster_path");
             String original_title = jo.getString("original_title");
             String overview = jo.getString("overview");
             String release_date = jo.getString("release_date");
-            
-            list.add(MovieSearch.createMovie(id, original_title, 
-            overview, release_date));
+            // String backdrop_path = jo.getString("backdrop_path");
+
+            // Integer total_results = jo.getInt("total_results");
+            // Integer total_pages = jo.getInt("total_pages");
+
+            list.add(MovieSearch.createMovie(id,
+            // poster_path,
+                    original_title,
+                    overview,
+                    release_date
+                    // backdrop_path
+                    ));
         }
         return list;
     }
 
-    public List<MovieSearch> detailMovie(Integer id) {
-        
-        // simpan?
-        Map<Integer, String> urlParams = new HashMap<>();
-        urlParams.put(id, "id");
+    public List<MovieSearch> detailMovie(int id) {
+
+        Map<String, Integer> urlParams = new HashMap<>();
+        urlParams.put("id", id);
 
         String url = UriComponentsBuilder.fromUriString(searchIdURL)
                 .queryParam("api_key", key)
                 .buildAndExpand(urlParams)
                 .toUriString();
 
+        // String fragment =
+        // UriComponentsBuilder.fromPath("/{id}").queryParam("api_key",
+        // key).toUriString();
+        // String fullPath = UriComponentsBuilder.fromUriString(detailURL)
+        // .fragment(fragment)
+        // .path("/{id}")
+        // .queryParam("api_key", key)
+        // .toUriString();
+
         // Create the GET request, GET url
         RequestEntity<Void> req = RequestEntity.get(url).build();
+
         // calling API
         RestTemplate template = new RestTemplate();
         ResponseEntity<String> resp = template.exchange(req, String.class);
@@ -140,23 +158,24 @@ public class MovieService {
         Reader strReader = new StringReader(payload);
         JsonReader jsonReader = Json.createReader(strReader);
         JsonObject movieResult = jsonReader.readObject();
-        // get JsonArray "Data"
         // JsonArray movieData = movieResult.getJsonArray("results");
         ArrayList<MovieSearch> list = new ArrayList<>();
 
-            JsonObject results = movieResult.getJsonObject("results");
-            String backdrop_path = results.getString("backdrop_path");
-            String original_title = results.getString("original_title");
-            String overview = results.getString("overview");
-            String release_date = results.getString("release_date");
+        JsonObject results = movieResult.asJsonObject();
+        String backdrop_path = results.getString("backdrop_path");
+        String original_title = results.getString("original_title");
+        String overview = results.getString("overview");
+        String release_date = results.getString("release_date");
 
-            // Integer total_results = results.getString(total_results);
-            // Integer total_pages = results.getString(total_pages);
+        list.add(MovieSearch.specMovie(id,
+                backdrop_path,
+                original_title,
+                overview,
+                release_date));
+                
+        
 
-            list.add(MovieSearch.specMovie(id, backdrop_path, original_title, overview, 
-             release_date));
-
-             return list;
+        return list;
     }
 
     public void saveToRepo(int i, String payload) {
@@ -172,7 +191,7 @@ public class MovieService {
         String result = movieRepo.get(id);
         if (null == result)
             return Optional.empty();
-            // create obj with values retrieved from redis
+        // create obj with values retrieved from redis
         return Optional.of(Movie.createNew(result));
     }
 }

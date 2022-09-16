@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" data-th-each="d: ${detail}" style="margin-top: 20px;">
+        <div class="row">
+            
+            <img data-th-src="@{https://image.tmdb.org/t/p/original/{backdrop_path}(backdrop_path=${d.backdrop_path})}"
+            class="img-fluid rounded-start" alt="..." style="width: 150px; height: 170px;">
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 data-th-text="${d.original_title}"></h3>
+                        <p class="card-text"><small class="text-muted" data-th-text="${d.release_date}" type="date"
+                                data-date="" data-date-format="DD MMMM YYYY"></small></p>
+                        <div style="padding-top: 20px;">
+                            <!-- <h5>Description</h5> -->
+                            <p class="card-text" data-th-text="${d.overview}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

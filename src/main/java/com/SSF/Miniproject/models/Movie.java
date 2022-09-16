@@ -8,13 +8,8 @@ import jakarta.json.JsonReader;
 
 public class Movie {
 
-    // popular movie
-    // public boolean adult;
-    // public String backdrop_path;
-    // public List<Integer> genre_ids; // or int 
     public String poster_path;
     public String title;
-    // public String video;
     public int id;
     public String original_language;
     public String original_title;
@@ -104,6 +99,4 @@ public class Movie {
             .add("vote_count", vote_count)
             .build();
     }
-
-    
 }

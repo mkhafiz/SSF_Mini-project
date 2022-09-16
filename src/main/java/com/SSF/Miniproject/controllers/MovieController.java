@@ -65,13 +65,15 @@ public class MovieController {
     }
 
     // Detailed page
-    @GetMapping( path = "/search/{id}")
+    @GetMapping(path = "/search/{id}")
     public String getBookById(Model model, @PathVariable int id) {
     List<MovieSearch> movieDetails = movieSvc.detailMovie(id);
-    model.addAttribute("details", movieDetails);
-    return "book";
+    model.addAttribute("detail", movieDetails);
+    return "detail";
     }
 
+
+    // Json
     @PostMapping(path = "/movies") // edit PATH
     public String savedMovie(HttpSession sess) {
 

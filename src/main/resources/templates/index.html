@@ -21,8 +21,7 @@
     <nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">
-          <img src="./static/images/logo.png" 
-          height="40px" width="40px"/>
+          <img data-th-src="@{/static/images/logo.png}" height="40px" width="40px"/>
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -86,7 +85,9 @@
 
                     <div class="card-body">
                         <h5 class="card-title">
-                          <span data-th-text="${m.title}"></span></h5>
+                          <span data-th-text="${m.title}"></span>
+                          <span data-th-text="${m.original_title}"></span>
+                        </h5>
                         <h5 class="card-title">Title missing (to be removed)</h5>
                         
                         <p class="card-text">

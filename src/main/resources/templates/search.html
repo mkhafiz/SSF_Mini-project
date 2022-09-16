@@ -27,7 +27,9 @@
 
                     <div class="col-md-9">
                         <div class="card-body">
-                            <h5 class="card-title" data-th-text="${s.original_title}">Card title</h5>
+                            <a th:href="@{'/search/' + ${s.id}}" style="text-decoration: none">
+                            <h5 class="card-title" data-th-text="${s.original_title}"></h5>
+                            </a>
                             <p class="card-text"><small class="text-muted" data-th-text="${s.release_date}" type="date"
                                     data-date="" data-date-format="DD MMMM YYYY"></small></p>
                             <!-- can ommit the line above -->
