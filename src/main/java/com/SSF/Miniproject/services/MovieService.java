@@ -71,7 +71,6 @@ public class MovieService {
         }
         return list;
     }
-    
 
     public List<MovieSearch> searchMovie(String word) {
 
@@ -108,18 +107,19 @@ public class MovieService {
             String original_title = jo.getString("original_title");
             String overview = jo.getString("overview");
             String release_date = jo.getString("release_date");
-            // String backdrop_path = jo.getString("backdrop_path");
 
-            // Integer total_results = jo.getInt("total_results");
-            // Integer total_pages = jo.getInt("total_pages");
+            JsonObject results = movieResult.asJsonObject();
+            Integer total_results = results.getInt("total_results");
+            Integer total_pages = results.getInt("total_pages");
 
-            list.add(MovieSearch.createMovie(id,
-            // poster_path,
+            list.add(MovieSearch.searchMovie(
+                    id,
+                    // poster_path,
                     original_title,
                     overview,
-                    release_date
-                    // backdrop_path
-                    ));
+                    release_date,
+                    total_results,
+                    total_pages));
         }
         return list;
     }
@@ -133,15 +133,6 @@ public class MovieService {
                 .queryParam("api_key", key)
                 .buildAndExpand(urlParams)
                 .toUriString();
-
-        // String fragment =
-        // UriComponentsBuilder.fromPath("/{id}").queryParam("api_key",
-        // key).toUriString();
-        // String fullPath = UriComponentsBuilder.fromUriString(detailURL)
-        // .fragment(fragment)
-        // .path("/{id}")
-        // .queryParam("api_key", key)
-        // .toUriString();
 
         // Create the GET request, GET url
         RequestEntity<Void> req = RequestEntity.get(url).build();
@@ -167,13 +158,31 @@ public class MovieService {
         String overview = results.getString("overview");
         String release_date = results.getString("release_date");
 
-        list.add(MovieSearch.specMovie(id,
-                backdrop_path,
-                original_title,
-                overview,
-                release_date));
-                
-        
+        Integer budget = results.getInt("budget");
+        Integer revenue = results.getInt("revenue");
+        String status = results.getString("status");
+        String tagline = results.getString("tagline");
+        JsonArray spoken_lang = results.getJsonArray("spoken_languages");
+        JsonObject spoke = spoken_lang.getJsonObject(0);
+        String name = spoke.getString("name"); // lang
+        String poster_path = results.getString("poster_path");
+
+
+        // JsonArray genres = results.getJsonArray("genres");
+        // for (int i = 0; i < genres.size(); i++) {
+        //     String name = genres.getString(1);
+        //     list.add(Movie.create(jo));
+        // }
+
+        list.add(MovieSearch.specMovie(id, backdrop_path, original_title, overview,
+                release_date,
+                budget,
+                revenue,
+                status,
+                tagline,
+                name,
+                poster_path
+                ));
 
         return list;
     }

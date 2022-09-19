@@ -31,14 +31,6 @@ public class MovieController {
     @Autowired
     private MovieService movieSvc;
 
-    // TmdbMovies movie = new
-    // TmdbApi("ec6d862bc5e4d8d19702e33728e1980a").getMovies();
-    // MovieDb movies = movie.getMovie(78, "en", MovieMethod.credits,
-    // MovieMethod.images, MovieMethod.similar);
-    // sess.setAttribute("sess", movie);
-    // model.addAttribute("movie", movie);
-    // return "index";
-
 
     // path + return = home
     @RequestMapping(path = { "/home" })

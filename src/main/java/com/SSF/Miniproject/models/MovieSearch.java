@@ -17,6 +17,11 @@ public class MovieSearch {
    public String backdrop_path;
    public int total_results;
    public int total_pages;
+   public int budget;
+   public int revenue;
+   public String status;
+   public String tagline;
+   public String name;
 
 public String getPoster_path() {    return poster_path;}
 public void setPoster_path(String poster_path) {    this.poster_path = poster_path;}
@@ -45,11 +50,28 @@ public void setTotal_results(int total_results) {    this.total_results = total_
 public int getTotal_pages() {    return total_pages;}
 public void setTotal_pages(int total_pages) {    this.total_pages = total_pages;}
 
+public int getBudget() {return budget;}
+public void setBudget(int budget) {    this.budget = budget;}
 
-public static MovieSearch createMovie(
+public int getRevenue() {    return revenue;}
+public void setRevenue(int revenue) {    this.revenue = revenue;}
+
+public String getStatus() {    return status;}
+public void setStatus(String status) {    this.status = status;}
+
+public String getTagline() {    return tagline;}
+public void setTagline(String tagline) {    this.tagline = tagline;}
+
+public String getName() {    return name;}
+public void setName(String name) {    this.name = name;}
+
+
+public static MovieSearch searchMovie(
     int id,  
     // String poster_path,
-    String original_title, String overview, String release_date) {
+    String original_title, String overview, String release_date,
+    int total_results,
+    int total_pages) {
 
     MovieSearch m1 = new MovieSearch();
 
@@ -59,8 +81,8 @@ public static MovieSearch createMovie(
     m1.setOverview(overview);
     m1.setRelease_date(release_date);
     // m1.setBackdrop_path(backdrop_path);
-    // m1.setTotal_results(total_results);
-    // m1.setTotal_pages(total_pages);
+    m1.setTotal_results(total_results);
+    m1.setTotal_pages(total_pages);
     return m1;
 }
 
@@ -69,7 +91,13 @@ public static MovieSearch createMovie(
     String backdrop_path, 
     String original_title, 
     String overview, 
-    String release_date
+    String release_date, 
+    int budget,
+    int revenue,
+    String status,
+    String tagline,
+    String name,
+    String poster_path
     ) {
         MovieSearch m2 = new MovieSearch();
 
@@ -78,9 +106,15 @@ public static MovieSearch createMovie(
         m2.setOriginal_title(original_title);
         m2.setOverview(overview);
         m2.setRelease_date(release_date);
-        // m2.setTotal_pages(total_results);
-        // m2.setTotal_results(total_pages);
+        m2.setBudget(budget);
+        m2.setRevenue(revenue);
+        m2.setStatus(status);
+        m2.setTagline(tagline);
+        m2.setName(name);
+        m2.setPoster_path(poster_path);
         return m2;
+
+        
 }
 
 public static MovieSearch createNew(String jsonStr) {
