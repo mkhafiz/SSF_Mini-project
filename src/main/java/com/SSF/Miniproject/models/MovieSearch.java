@@ -22,6 +22,10 @@ public class MovieSearch {
    public String status;
    public String tagline;
    public String name;
+   public String username;
+
+public String getUsername() {    return username;}
+public void setUsername(String username) {    this.username = username;}   
 
 public String getPoster_path() {    return poster_path;}
 public void setPoster_path(String poster_path) {    this.poster_path = poster_path;}
@@ -69,10 +73,11 @@ public void setName(String name) {    this.name = name;}
 public static MovieSearch searchMovie(
     int id,  
     // String poster_path,
-    String original_title, String overview, String release_date,
-    int total_results,
-    int total_pages) {
-
+    String original_title, String overview,
+    String release_date
+    // int total_results,
+    // int total_pages
+    ) {
     MovieSearch m1 = new MovieSearch();
 
     m1.setId(id);
@@ -81,8 +86,8 @@ public static MovieSearch searchMovie(
     m1.setOverview(overview);
     m1.setRelease_date(release_date);
     // m1.setBackdrop_path(backdrop_path);
-    m1.setTotal_results(total_results);
-    m1.setTotal_pages(total_pages);
+    // m1.setTotal_results(total_results);
+    // m1.setTotal_pages(total_pages);
     return m1;
 }
 
@@ -114,7 +119,6 @@ public static MovieSearch searchMovie(
         m2.setPoster_path(poster_path);
         return m2;
 
-        
 }
 
 public static MovieSearch createNew(String jsonStr) {
@@ -158,4 +162,5 @@ public static MovieSearch createNew(JsonObject jo) {
             .add("backdrop_path", backdrop_path)
             .build();
     }
+    
 }

@@ -85,18 +85,18 @@ public class Movie {
         return m;
     }
 
-    public JsonObject toJson() {
-        return Json.createObjectBuilder()
-            .add("id", id)
-            .add("original_language", original_language)
-            .add("title", title)
-            .add("original_title", original_title)
-            .add("overview", overview)
-            .add("popularity", popularity)
-            .add("poster_path", poster_path)
-            .add("release_date", release_date)
-            .add("vote_average", vote_average)
-            .add("vote_count", vote_count)
-            .build();
-    }
+    // public JsonObject toJson() {
+    //     return Json.createObjectBuilder()
+    //         .add("id", id)
+    //         .add("original_language", original_language)
+    //         .add("title", title)
+    //         .add("original_title", original_title)
+    //         .add("overview", overview)
+    //         .add("popularity", popularity)
+    //         .add("poster_path", poster_path)
+    //         .add("release_date", release_date)
+    //         .add("vote_average", vote_average)
+    //         .add("vote_count", vote_count)
+    //         .build();
+    // }
 }

@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/login-register.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 </head>
 <style>
     .flex {
@@ -16,18 +20,36 @@
 </style>
 
 <body>
-    <h2>Log in to your account</h2>
 
-    <!-- nak kasi middle + light outline + POST Mapping -->
 
-     <form method="POST" class="flex"><!-- action="processNumber" -->
-        Log in to your account <br><br>
-        Email Address: <br>
-        <input type="email" name="email" /><br>
-        Password: <br>
-        <input type="password" name="password" /><br><br>
-        <input type="submit" value="Login" />
-    </form>
+    <div class="container">
+        <div class="modal fade login" id="loginModal">
+            <div class="modal-dialog login animated">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Login with</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="box">
+                            <div class="content">
+                                <div class="form loginBox" style="font-size: larger;">
+                                    <form method="POST" action="/login" accept-charset="UTF-8">
+                                        <input id="email" class="form-control form-control-lg" type="text" placeholder="Username"
+                                            name="name" required>
+                                        <input id="password" class="form-control form-control-lg" type="password" placeholder="Password"
+                                            name="password" required>
+                                            <button class="btn btn-outline-info" type="submit">Login</button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </body>
 
 </html>

@@ -3,6 +3,7 @@ package com.SSF.Miniproject.services;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.SSF.Miniproject.models.Movie;
 import com.SSF.Miniproject.models.MovieSearch;
 import com.SSF.Miniproject.repositories.MovieRepository;
+// import com.SSF.Miniproject.repositories.UserRepository;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -38,6 +40,11 @@ public class MovieService {
 
     @Autowired
     private MovieRepository movieRepo;
+
+    // public String getUser(String key){
+    //     String value = movieRepo.get(key);
+    //     return value;
+    // }
 
     public List<Movie> trendMovies() {
 
@@ -68,6 +75,7 @@ public class MovieService {
         for (int i = 0; i < movieData.size(); i++) {
             JsonObject jo = movieData.getJsonObject(i);
             list.add(Movie.create(jo));
+            list.toString();
         }
         return list;
     }
@@ -108,18 +116,19 @@ public class MovieService {
             String overview = jo.getString("overview");
             String release_date = jo.getString("release_date");
 
-            JsonObject results = movieResult.asJsonObject();
-            Integer total_results = results.getInt("total_results");
-            Integer total_pages = results.getInt("total_pages");
+            // JsonObject results = movieResult.asJsonObject();
+            // Integer total_results = results.getInt("total_results");
+            // Integer total_pages = results.getInt("total_pages");
 
             list.add(MovieSearch.searchMovie(
                     id,
                     // poster_path,
                     original_title,
                     overview,
-                    release_date,
-                    total_results,
-                    total_pages));
+                    release_date
+                    // total_results,
+                    // total_pages
+                    ));
         }
         return list;
     }
@@ -149,7 +158,7 @@ public class MovieService {
         Reader strReader = new StringReader(payload);
         JsonReader jsonReader = Json.createReader(strReader);
         JsonObject movieResult = jsonReader.readObject();
-        // JsonArray movieData = movieResult.getJsonArray("results");
+
         ArrayList<MovieSearch> list = new ArrayList<>();
 
         JsonObject results = movieResult.asJsonObject();
@@ -168,12 +177,6 @@ public class MovieService {
         String poster_path = results.getString("poster_path");
 
 
-        // JsonArray genres = results.getJsonArray("genres");
-        // for (int i = 0; i < genres.size(); i++) {
-        //     String name = genres.getString(1);
-        //     list.add(Movie.create(jo));
-        // }
-
         list.add(MovieSearch.specMovie(id, backdrop_path, original_title, overview,
                 release_date,
                 budget,
@@ -187,20 +190,20 @@ public class MovieService {
         return list;
     }
 
-    public void saveToRepo(int i, String payload) {
-        movieRepo.save(i, payload);
+    public void saveToRepo( int id, String payload) {
+        movieRepo.save( id, payload);
     }
 
-    public Optional<Movie> getMovieById(String id) {
+    public Optional<MovieSearch> getMovieById(String id) {
         return getMovieById(id.toString());
     }
 
-    public Optional<Movie> getMovieById(int id) {
+    public Optional<MovieSearch> getMovieById(int id) {
         // check if repo has the value
         String result = movieRepo.get(id);
         if (null == result)
             return Optional.empty();
         // create obj with values retrieved from redis
-        return Optional.of(Movie.createNew(result));
+        return Optional.of(MovieSearch.createNew(result));
     }
 }
