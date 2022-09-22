@@ -41,10 +41,6 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepo;
 
-    // public String getUser(String key){
-    //     String value = movieRepo.get(key);
-    //     return value;
-    // }
 
     public List<Movie> trendMovies() {
 

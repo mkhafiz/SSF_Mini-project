@@ -36,7 +36,7 @@ public class MovieRESTController {
 
         if (opt.isEmpty()) {
             JsonObject err = Json.createObjectBuilder()
-                    .add("error", "Cannot find movie details %s".formatted(id))
+                    .add("Error", " movie details %s not found".formatted(id))
                     .build();
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(err.toString());
